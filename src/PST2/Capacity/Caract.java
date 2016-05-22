@@ -29,14 +29,13 @@ public class Caract extends Capacity {
             if (!list.contains(p))
                 if ((up && (piece.getTeam() == p.getTeam())) || (!up && (piece.getTeam() != p.getTeam())))
                     set(p,again.indexOf(p));
-        ArrayList<Piece> toDel=new ArrayList<>();
+        ArrayList<Integer[]> toDel=new ArrayList<>();
         for (Piece p : list)
             if (!again.contains(p))
                 if ((up && (piece.getTeam() == p.getTeam())) || (!up && (piece.getTeam() != p.getTeam()))) {
-                    remove(p);
-                    toDel.add(p);
+                    remove(p,toDel);
                 }
-        list.removeAll(toDel);
+        plus.removeAll(toDel);
         list = again;
     }
 
@@ -51,12 +50,12 @@ public class Caract extends Capacity {
         p.setLife(p.getLife() + tab[2]);
     }
 
-    private void remove(Piece p) {
+    private void remove(Piece p, ArrayList<Integer[]> toDel) {
         Integer[] tab = plus.get(list.indexOf(p));
         p.setAtt(p.getAtt() - tab[0]);
         p.setDef(p.getDef() - tab[1]);
         p.setLife(p.getLife() - tab[2]);
-        plus.remove(list.indexOf(p));
+        toDel.add(plus.get(list.indexOf(p)));
     }
 
 }
