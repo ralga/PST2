@@ -1,0 +1,7 @@
+Resolution=1280 720
+Fullscreen=true
+FPS=60
+Langage=French
+Serveur=localhost
+Port=63502
+ID=Porrow

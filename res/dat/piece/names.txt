@@ -1,0 +1,12 @@
+Roi
+Reine
+Fou
+Chevalier
+Tour
+Pion
+Roi
+Reine
+Fou
+Chevalier
+Tour
+Pion
