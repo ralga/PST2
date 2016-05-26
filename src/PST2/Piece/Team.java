@@ -19,13 +19,13 @@ public class Team
             switch(pcs[id][0])
             {
                 case Piece.KING:
-                    this.team[i] = king = new King(ns[id], side, id, pcs[id][1], pcs[id][2], pcs[id][3], i % C, y,2,1);
+                    this.team[i] = king = new King(ns[id], side, id, pcs[id][1], pcs[id][2], pcs[id][3], i % C, y, pcs[id][4], pcs[id][5]);
                     break;
                 case Piece.PAWN:
-                    this.team[i] = new Pawn(ns[id], side, id, pcs[id][1], pcs[id][2], pcs[id][3], i % C, y,0,1);
+                    this.team[i] = new Pawn(ns[id], side, id, pcs[id][1], pcs[id][2], pcs[id][3], i % C, y, pcs[id][4], pcs[id][5]);
                     break;
                 default:
-                    this.team[i] = new SEPiece(ns[id], pcs[id][0], side, id, pcs[id][1], pcs[id][2], pcs[id][3], i % C, y,0,1);
+                    this.team[i] = new SEPiece(ns[id], pcs[id][0], side, id, pcs[id][1], pcs[id][2], pcs[id][3], i % C, y, pcs[id][4], pcs[id][5]);
                     break;
             }
         }

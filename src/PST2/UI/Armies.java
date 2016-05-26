@@ -4,6 +4,7 @@ import PST2.Piece.Piece;
 import PST2.*;
 
 import static PST2.Game.C;
+import processing.core.PApplet;
 
 public class Armies extends GraphicObject
 {
@@ -39,6 +40,7 @@ public class Armies extends GraphicObject
     @Override
     public void draw()
     {
+        se.g.imageMode(PApplet.CORNER);
         for(Piece[] line : game.getChecker())
             for(Piece pi : line)
                 if(pi != null)
@@ -57,7 +59,7 @@ public class Armies extends GraphicObject
                             se.g.fill(0, 150, 0, 200);
                         else
                             se.g.fill(150, 0, 0, 200);
-                        ellipse(j * w/C + w/C/2, i * w/C + w/C/2, 50, 50);
+                        ellipse(j * w/C + w/C/2, i * w/C + w/C/2, 30, 30);
                     }
                     /*if(mouvs[i][j])
                     {
@@ -76,23 +78,28 @@ public class Armies extends GraphicObject
     @Override
     public void mousePressed(int x, int y)                                      //Gestion des clics de souris
     {
-        int rx = getRX(x), ry = getRY(y);                                       //On récupère les coordonnées de la souris relativement au GO
-        Piece selec = game.getSelection();                                      //On récupère la pièce sélectionnée
-        Piece nSelec = game.getChecker()[ry*C / h][rx*C / w];                   //On récupère la pièce sous la souris
-        if(selec == null)                                                       //Si il n'y a pas de pièce sélectionnée
+        Promotion promo = (Promotion)game.getGO()[6];
+        if(!promo.isVisible())
         {
-            changeSelection(nSelec);                                            //On modifie (éventuellement) la sélection
-            return;                                                             //On s'arrête ici
+            int rx = getRX(x), ry = getRY(y);                                   //On récupère les coordonnées de la souris relativement au GO
+            Piece selec = game.getSelection();                                  //On récupère la pièce sélectionnée
+            Piece nSelec = game.getChecker()[ry*C / h][rx*C / w];               //On récupère la pièce sous la souris
+            if(selec == null)                                                   //Si il n'y a pas de pièce sélectionnée
+            {
+                changeSelection(nSelec);                                        //On modifie (éventuellement) la sélection
+                return;                                                         //On s'arrête ici
+            }
+            pMoves = selec.getMoves(game.getChecker(), true);                   //On récupère les mouvements potentiels de la sélection
+            if(pMoves[ry*C / h][rx*C / w])                                      //Si le clic est sur une case où le mouvements est autorisé...
+            {
+                selec.move(rx*C / w, ry*C / h, game.getChecker());              //On déplace la pièce sur la bonne case
+                game.promotion(selec);                                          //Tentative de promotion
+                game.setTurn();                                                 //On passe au tour suivant
+                game.setSelection(null);                                        //On annule la sélection
+            }
+            else
+                changeSelection(nSelec);                                        //On modifie la sélection
         }
-        pMoves = selec.getMoves(game.getChecker(), true);                       //On récupère les mouvements potentiels de la sélection
-        if(pMoves[ry*C / h][rx*C / w])                                          //Si le clic est sur une case où le mouvements est autorisé...
-        {
-            selec.move(rx*C / w, ry*C / h, game.getChecker());                  //On déplace la pièce sur la bonne case
-            game.setTurn();                                                     //On passe au tour suivant
-            game.setSelection(null);                                            //On annule la sélection
-        }
-        else
-            changeSelection(nSelec);                                            //On modifie la sélection
     }
 
     @Override

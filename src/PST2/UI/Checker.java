@@ -4,6 +4,7 @@ import PST2.*;
 import processing.core.PGraphics;
 
 import static PST2.Game.C;
+import processing.core.PApplet;
 
 public class Checker extends GraphicObject
 {
@@ -33,6 +34,7 @@ public class Checker extends GraphicObject
     @Override
     public void draw() 
     {
+        se.g.imageMode(PApplet.CORNER);
         image(img, -1, -1);
     }
     

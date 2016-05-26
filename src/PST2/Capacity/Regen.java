@@ -9,15 +9,15 @@ public class Regen extends Capacity {
     private final int REGEN = 1;
     private final int lifemax;
 
-    public Regen(Piece p) {
-        super(p,COOL, CAST, false);
+    public Regen(Piece p,int i) {
+        super(p,COOL, CAST,i, false);
         lifemax = p.getLife();
         this.isActive=false;
         init();
     }
 
     @Override
-    public void power() {
+    public void setfire() {
         if (piece.isAlive() && isAvailable()){
             if (piece.getLife() < lifemax - REGEN)
                 piece.setLife(piece.getLife() + REGEN);
@@ -26,5 +26,8 @@ public class Regen extends Capacity {
             cooldown=COOL;
         }
     }
+
+    @Override
+    protected void reset() {}
 
 }

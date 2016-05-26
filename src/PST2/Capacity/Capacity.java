@@ -12,16 +12,17 @@ public abstract class Capacity {
     Piece piece;                                                                //Pièce affiliée à la capacité
     protected int cooldown;                                                     //Cooldown en cours
     protected int cast;                                                         //Cast en cours
+    protected int id;
     protected boolean isActive;                                                 //Indique si la capacité est active ou passive
 
-    public Capacity(Piece piece, int cooldown, int cast, boolean active) {
+    protected Capacity(Piece piece, int cooldown, int cast, int id, boolean active) {
         this.cooldown = cooldown;
         this.cast = cast;
         this.isActive = active;
         this.piece = piece;
     }
 
-    public void init() {                                                         //ajoute le pouvoir dans la liste des pouvoirs initialisés
+    protected void init() {                                                     //ajoute le pouvoir dans la liste des pouvoirs initialisés
         if (!isActive)
             if (piece.getTeam())
                 passive1.add(this);
@@ -29,14 +30,13 @@ public abstract class Capacity {
                 passive2.add(this);
         else
             active.add(this);
-
     }
 
     public boolean isAvailable() {                                              //Indique si le pouvoir est disponible
         return (cooldown == 0);
     }
-    
-    protected ArrayList<Piece> getAround(int x, int y){                         //Renvoie les cases occupées autour de la case [x,y]
+
+    protected ArrayList<Piece> getAround(int x, int y) {                         //Renvoie les cases occupées autour de la case [x,y]
         ArrayList<Piece> around = new ArrayList<>();
         Piece[][] tab = StratEdge.getSE().getGame().getChecker();
         for (int i = x - 1; i <= x + 1; ++i)
@@ -46,12 +46,20 @@ public abstract class Capacity {
                         around.add(tab[j][i]);
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Out of Bound exception : " + this.getClass().getName());
+//                    System.out.println("Out of Bound exception : " + this.getClass().getName() + "  "+piece.getName() + " "+piece.getTeam());
                 }
         return around;
     }
-    
-    public abstract void power();
+
+    public void power() {
+        if (isAvailable())
+//            System.out.println(this.getClass().getName());
+            setfire();
+    }
+
+    public abstract void setfire();
+
+    protected abstract void reset();
 
     /**
      * Permet de lier le numéro a une capacité
@@ -63,22 +71,49 @@ public abstract class Capacity {
     public static Capacity getCapacity(Piece p, int i) {
         switch (i) {
             case 0:
-                return new Regen(p);                                            //Capacité de régénération
+                return new Regen(p, i);                                         //Capacité de régénération : Terminé
             case 1:
-                return new Teleport(p);                                         //Capacité de téléportation
+                return new Teleport(p, i);                                      //Capacité de téléportation
             case 2:
-                return new Caract(p,true);                                      //Capacité d'augmentation des caractéristiques
+                return new Caract(p, i, true);                                  //Capacité d'augmentation des caractéristiques
             case 3:
-                return new Caract(p,false);                                     //Capacité de diminution des caractéristiques
+                return new Caract(p, i, false);                                 //Capacité de diminution des caractéristiques
+            case 4:
+                return new Suicide(p, i);                                       //Capacité Explosion suicide : Terminé
+            case 5:
+                return new Phoenix(p, i);                                       //Capacité de Renaissance : Terminé
+            case 6:
+                return new Reset(p,i);                                          //Réinitialisation des capacités : Terminé
             default:
                 return null;
         }
     }
 
-    //Getters
-    public int getCurrentCool() {return cooldown;}
+    public void kill() {
+        if (isActive)
+            reset();
+    }
 
-    public int getCurrentCast() {return cast;}
+    public void set() {
+        cooldown=0;
+    }
+
+    //Getters
+    public int getCurrentCool() {
+        return cooldown;
+    }
+
+    public int getCurrentCast() {
+        return cast;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isActive() {
+        return this.isActive;
+    }
 
     public static ArrayList<Capacity> getPassive(boolean team) {
         if (team)
@@ -86,8 +121,10 @@ public abstract class Capacity {
         else
             return passive2;
     }
-    
-    public static ArrayList<Capacity> getActive(){return active;}
+
+    public static ArrayList<Capacity> getActive() {
+        return active;
+    }
 
     //Setters
     /**
@@ -96,6 +133,10 @@ public abstract class Capacity {
     public void minusCool() {
         if (this.cooldown > 0)
             --this.cooldown;
+    }
+    
+    public void setCool(int cool){
+        this.cooldown=cool;
     }
 
 }

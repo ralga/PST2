@@ -9,14 +9,14 @@ public class Teleport extends Capacity {
     private final static int CAST=0;                                             //Temps de Cast
     private Piece[][] tab;
 
-    public Teleport(Piece p) {
-        super(p,COOL, CAST,true);
+    public Teleport(Piece p,int i) {
+        super(p,COOL, CAST,i,true);
         this.isActive=true;
         init();
     }
 
     @Override
-    public void power() {
+    public void setfire() {
         if (isAvailable()) {        
             tab=StratEdge.getSE().getGame().getChecker(); 
 //            boolean[][] pmoves=getmoves(tab);
@@ -33,5 +33,8 @@ public class Teleport extends Capacity {
                 pmoves[i][j]=(tab[i][j]==null);
         return pmoves;
     }
+
+    @Override
+    protected void reset() {}
 
 }

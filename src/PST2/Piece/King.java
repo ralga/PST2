@@ -7,9 +7,9 @@ public class King extends SEPiece
 {
     private boolean check = false;                                              //Détermine si le roi est en échec
             
-    public King(String NAME, boolean team, int image, int attack, int defense, int life, int x, int y,int c1,int c2)
+    public King(String NAME, boolean team, int image, int attack, int defense, int life, int x, int y, int cap1, int cap2)
     {
-        super(NAME, KING, team, image, attack, defense, life, x, y,c1,c2);
+        super(NAME, KING, team, image, attack, defense, life, x, y, cap1, cap2);
     }
     
     @Override

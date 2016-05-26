@@ -6,10 +6,10 @@ import processing.core.*;
 
 public abstract class GraphicObject
 {   
-    private static final String[] ACCEPTED_EXT = {".png", ".jpg", ".gif"};      //Extensions d'image autorisées
+    private static final String[] ACCEPTED_EXT = {".png", ".jpg", ".gif",".jpeg"};      //Extensions d'image autorisées
     protected final StratEdge se;
-    protected final int x;
-    protected final int y;
+    protected int x;
+    protected int y;
     protected int w;
     protected int h;
     protected int r;
@@ -83,7 +83,14 @@ public abstract class GraphicObject
     
     public boolean isOn(int mx, int my)                                         //Renvoie true si le point (mx, my) appartient au GO
     {
-        return (mx >= x) && (mx < x+w) && (my >= y) && (my < y+h);
+        if(w != -1)
+            return (mx >= x) && (mx < x+w) && (my >= y) && (my < y+h);
+        else
+        {
+            int dx = Math.abs(x-mx);
+            int dy = Math.abs(y-my);
+            return Math.sqrt(dx*dx + dy*dy) <= r;
+        }
     }
     
     /*Getters*/
@@ -93,6 +100,10 @@ public abstract class GraphicObject
     public int getH(){return h;}
     public int getRX(int px){return px - x;}                                    //Position relative en x
     public int getRY(int py){return py - y;}                                    //Position relative en y
+    
+    /*Setters*/
+    public void setX(int nx){x = (se.width-se.getW()) / 2 + nx;}
+    public void setY(int ny){y = (se.height-se.getH()) / 2 + ny;}
     
     /*Abstract methods*/
     public abstract void init();                                                //Gestion de l'initialisation du composant graphique

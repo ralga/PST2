@@ -25,17 +25,17 @@ public class DeadPieces extends GraphicObject
     {
         se.g.fill(150,100);
         rect(0, 0, w, h, 30);
-        int i = 20, h = 5;
+        int i = 20, he = 5;
         for(Piece p : team.get())
         {
             if(!p.isAlive())
             {
-                image(tabImg[p.getImg()], i, h);
+                image(tabImg[p.getImg()], i, he);
                 i += 55;
                 if(i > 770)
                 {
                     i = 20;
-                    h = 60;
+                    he = 60;
                 }
             }
         }

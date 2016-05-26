@@ -5,57 +5,58 @@ import java.util.ArrayList;
 
 public class Caract extends Capacity {
 
-    private static final int COOL = 0;                                            //Cooldown propre à chaque capacité
-    private final static int CAST = 0;                                            //Temps de Cast propre à chaque capacité
+    private static final int COOL = 0;                                          //Cooldown propre à chaque capacité
+    private final static int CAST = 0;                                          //Temps de Cast propre à chaque capacité
     private final double mult;
+    private final double div;
     private final boolean up;
-    private ArrayList<Piece> list = new ArrayList<>();
-    private ArrayList<Integer[]> plus = new ArrayList<>();
+    private ArrayList<Piece> ancien = new ArrayList<>();
 
-    public Caract(Piece piece, boolean up) {
-        super(piece, COOL, CAST, false);
-        if (up)
-            mult = 1.20;
-        else
+    public Caract(Piece piece, int i,boolean up) {
+        super(piece, COOL, CAST,i, false);
+        if (up) {
+            mult = 1.2;
+            div = 0.83333;
+        }
+        else {
             mult = 0.75;
+            div = 1.4;
+        }
         this.up = up;
         init();
     }
 
     @Override
-    public void power() {
-        ArrayList<Piece> again = getAround(piece.getX(),piece.getY());
-        for (Piece p : again)
-            if (!list.contains(p))
-                if ((up && (piece.getTeam() == p.getTeam())) || (!up && (piece.getTeam() != p.getTeam())))
-                    set(p,again.indexOf(p));
-        ArrayList<Integer[]> toDel=new ArrayList<>();
-        for (Piece p : list)
-            if (!again.contains(p))
-                if ((up && (piece.getTeam() == p.getTeam())) || (!up && (piece.getTeam() != p.getTeam()))) {
-                    remove(p,toDel);
-                }
-        plus.removeAll(toDel);
-        list = again;
+    public void setfire() {
+        if (isAvailable()) {
+            ArrayList<Piece> again = getAround(piece.getX(), piece.getY());
+            for (Piece p : again)
+                if (!ancien.contains(p))
+                    if ((up && (piece.getTeam() == p.getTeam())) || (!up && (piece.getTeam() != p.getTeam())))
+                        set(p);
+            for (Piece p : ancien)
+                if (!again.contains(p))
+                    if ((up && (piece.getTeam() == p.getTeam())) || (!up && (piece.getTeam() != p.getTeam())))
+                        reset(p);
+            ancien = again;
+        }
     }
 
-    private void set(Piece p, int index) {
-        Integer[] tab = new Integer[3];
-        tab[0] = (int) ((double) (p.getAtt() * mult)-p.getAtt());
-        tab[1] = (int) ((double) (p.getDef() * mult)-p.getDef());
-        tab[2] = (int) ((double) (p.getLife() * mult)-p.getLife());
-        plus.add(index,tab);
-        p.setAtt(p.getAtt() + tab[0]);
-        p.setDef(p.getDef() + tab[1]);
-        p.setLife(p.getLife() + tab[2]);
+    private void set(Piece p) {
+        p.setAtt((int) ((double) Math.round((p.getAtt() * mult))));
+        p.setDef((int) ((double) Math.round((p.getDef() * mult))));
+        p.setLife((int) ((double) Math.round((p.getLife() * mult))));
     }
 
-    private void remove(Piece p, ArrayList<Integer[]> toDel) {
-        Integer[] tab = plus.get(list.indexOf(p));
-        p.setAtt(p.getAtt() - tab[0]);
-        p.setDef(p.getDef() - tab[1]);
-        p.setLife(p.getLife() - tab[2]);
-        toDel.add(plus.get(list.indexOf(p)));
+    private void reset(Piece p) {
+        p.setAtt((int) Math.round((double) (p.getAtt() * div)));
+        p.setDef((int) Math.round((double) (p.getDef() * div)));
+        p.setLife((int) Math.round((double) (p.getLife() * div)));
+    }
+
+    @Override
+    protected void reset() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
