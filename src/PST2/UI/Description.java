@@ -45,7 +45,7 @@ public class Description extends GraphicObject {
             se.textAlign(PApplet.LEFT);
             se.g.fill(0);
             se.g.text(p.getName(), x + i.width + 30, y + size + 20);  //Affiche le nom 10 px en dessous du haut du cadre
-            se.g.text("Vie : " + p.getLife() + " / " + SEPiece.getPieces()[p.getType()][3],
+            se.g.text("Vie : " + p.getLife() + " / " + p.getLifemax(),
                     x + i.width + 30, y + 2 * (size + 2) + 15);                         //Affiche la vie
             se.g.text("Attaque :" + p.getAtt(),
                     x + i.width + 30, y + 3 * (size + 2) + 10);                         //Affiche l'attaque
@@ -57,10 +57,10 @@ public class Description extends GraphicObject {
                 image(j, 30, h / 3);
                 image(k, 30, 2 * h / 3);
                 se.g.text(p.getCapacity1().getName(), x + j.width + 50, y + h / 3 + 20);
-                if (p.getCapacity1().isActive() && p.getCapacity1().getCurrentCool()==0)
+                if (p.getCapacity1().getCurrentCool()!=0)
                     se.g.text("Cooldown c1 :" + p.getCapacity1().getCurrentCool(), x + j.width + 50, y + h / 3 + 55);
                 se.g.text(p.getCapacity2().getName(), x + k.width + 50, y + 2 * h / 3 + 20);
-                if (p.getCapacity2().isActive() && p.getCapacity2().getCurrentCool()==0)
+                if (p.getCapacity2().getCurrentCool()!=0)
                     se.g.text("Cooldown c2 :" + p.getCapacity2().getCurrentCool(), x + k.width + 50, y + 2 * h / 3 + 55);
             }
         }

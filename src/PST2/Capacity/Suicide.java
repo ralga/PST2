@@ -27,6 +27,8 @@ public class Suicide extends Capacity {
             }
         }
         piece.kill();
+        piece.setLife(0);
+        checker[piece.getY()][piece.getX()]=null;
         StratEdge.getSE().getGame().setSelection(null);
         StratEdge.getSE().getGame().setTurn();
     }

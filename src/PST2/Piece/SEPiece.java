@@ -32,6 +32,7 @@ public class SEPiece implements Piece
     protected boolean firstMove = false;                                        //Détermine si le premier mouvement a été effectué
     protected Pawn p = null;                                                    //Instance du pion parent (qui a été promu)
     private Capacity c1,c2;                                                     //Les deux capacités possédées par la pièce
+    private final int lifemax;
     
     /*Constructeur*/
     public SEPiece(String NAME, int type, boolean team, int image, int attack, int defense, int life, int x, int y, int cap1, int cap2)
@@ -46,6 +47,7 @@ public class SEPiece implements Piece
         this.x = x;
         this.y = y;
         moves = TABMOVES[type].clone();
+        this.lifemax=life;
         this.c1 = Capacity.getCapacity(this, cap1);
         this.c2 = Capacity.getCapacity(this, cap2);
     }
@@ -205,6 +207,9 @@ public class SEPiece implements Piece
     
     public static int[][] getTeams(){return TABTEAMS;}
     
+    @Override
+    public int getLifemax() {return lifemax;}
+    
     /*Setters*/
     
     @Override
@@ -241,4 +246,6 @@ public class SEPiece implements Piece
             p.kill();
         alive = false;
     }
+
+    
 }

@@ -6,6 +6,7 @@
 package PST2.Capacity;
 
 import PST2.Piece.Piece;
+import PST2.StratEdge;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +33,8 @@ public class Reset extends Capacity{
         for(Capacity p : act)
             if(p.piece.getTeam()==piece.getTeam())
                 p.setCool(0);
+        StratEdge.getSE().getGame().setSelection(null);
+        StratEdge.getSE().getGame().setTurn();
     }
 
     @Override

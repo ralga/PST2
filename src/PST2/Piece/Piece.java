@@ -33,6 +33,7 @@ public interface Piece
     public Capacity getCapacity2();
     public boolean[][] getMoves(Piece[][] checker, boolean saveTheKing);
     public Piece clonePiece();
+    public int getLifemax();
     
     /*Setters*/
     public void setType(int nType);

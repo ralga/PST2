@@ -41,8 +41,8 @@ public class Phoenix extends Capacity {
     public void power(){
         if(isAvailable() && !piece.isAlive())
             setfire();
-        if(!(piece.isAlive() || isAvailable()))
-            kill();
+        if(!piece.isAlive() && !isAvailable())
+            reset();
     }
 
     private int[] getNearest(Piece[][] checker,int x, int y) {

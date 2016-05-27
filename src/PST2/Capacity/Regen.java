@@ -6,7 +6,7 @@ public class Regen extends Capacity {
 
     private static final int COOL = 0;                                            //Cooldown propre à chaque capacité
     private final static int CAST = 0;                                            //Temps de Cast propre à chaque capacité
-    private final int REGEN = 1;
+    private final int REGEN = 10;
     private final int lifemax;
 
     public Regen(Piece p,int i) {

@@ -78,9 +78,9 @@ public abstract class Capacity {
             case 1:
                 return new Teleport(p, i);                                      //Capacité de téléportation
             case 2:
-                return new Caract(p, i, true, "Caractéristiques x1.20");//Capacité d'augmentation des caractéristiques
+                return new Caract(p, i, true, "Caractéristiques x1.20");        //Capacité d'augmentation des caractéristiques
             case 3:
-                return new Caract(p, i, false,"Caractéristiques x0.75");//Capacité de diminution des caractéristiques
+                return new Caract(p, i, false,"Caractéristiques x0.75");        //Capacité de diminution des caractéristiques
             case 4:
                 return new Suicide(p, i);                                       //Capacité Explosion suicide : Terminé
             case 5:
