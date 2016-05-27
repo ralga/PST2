@@ -12,8 +12,8 @@ public class Caract extends Capacity {
     private final boolean up;
     private ArrayList<Piece> ancien = new ArrayList<>();
 
-    public Caract(Piece piece, int i,boolean up) {
-        super(piece, COOL, CAST,i, false);
+    public Caract(Piece piece, int i,boolean up, String name) {
+        super(piece, COOL, CAST,i, false, name);
         if (up) {
             mult = 1.2;
             div = 0.83333;

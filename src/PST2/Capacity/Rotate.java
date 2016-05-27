@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PST2.Capacity;
 
 import PST2.Piece.Piece;
 
-/**
- *
- * @author mad
- */
 public class Rotate extends Capacity{
 
+    private static final int COOL = 0;                                         //Cooldown propre à chaque capacité
+    private final static int CAST = 7;                                          //Temps de Cast propre à chaque capacité
+    
     public Rotate(Piece piece, int cooldown, int cast, int id, boolean active) {
-        super(piece, cooldown, cast, id, active);
+        super(piece, COOL, CAST, id, active,"Rotation du plateau");
     }
 
     @Override

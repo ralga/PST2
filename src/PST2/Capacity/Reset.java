@@ -18,7 +18,7 @@ public class Reset extends Capacity{
     private final static int CAST = 0;                                          //Temps de Cast propre à chaque capacité
 
     public Reset(Piece piece, int id) {
-        super(piece, COOL, CAST, id, true);
+        super(piece, COOL, CAST, id, true,"Recharge des capacités");
         init();
     }
 

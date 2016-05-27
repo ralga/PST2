@@ -10,7 +10,7 @@ public class Regen extends Capacity {
     private final int lifemax;
 
     public Regen(Piece p,int i) {
-        super(p,COOL, CAST,i, false);
+        super(p,COOL, CAST,i, false, "Régénération");
         lifemax = p.getLife();
         this.isActive=false;
         init();

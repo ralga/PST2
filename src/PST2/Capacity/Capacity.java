@@ -9,17 +9,20 @@ public abstract class Capacity {
     private static ArrayList<Capacity> passive1 = new ArrayList<>();
     private static ArrayList<Capacity> active = new ArrayList<>();
     private static ArrayList<Capacity> passive2 = new ArrayList<>();
-    Piece piece;                                                                //Pièce affiliée à la capacité
+    protected Piece piece;                                                      //Pièce affiliée à la capacité
     protected int cooldown;                                                     //Cooldown en cours
     protected int cast;                                                         //Cast en cours
     protected int id;
     protected boolean isActive;                                                 //Indique si la capacité est active ou passive
+    protected final String NAME;
 
-    protected Capacity(Piece piece, int cooldown, int cast, int id, boolean active) {
+    protected Capacity(Piece piece, int cooldown, int cast, int id, boolean active, String name) {
         this.cooldown = cooldown;
         this.cast = cast;
         this.isActive = active;
         this.piece = piece;
+        this.NAME=name;
+        this.id=id;
     }
 
     protected void init() {                                                     //ajoute le pouvoir dans la liste des pouvoirs initialisés
@@ -75,9 +78,9 @@ public abstract class Capacity {
             case 1:
                 return new Teleport(p, i);                                      //Capacité de téléportation
             case 2:
-                return new Caract(p, i, true);                                  //Capacité d'augmentation des caractéristiques
+                return new Caract(p, i, true, "Caractéristiques x1.20");//Capacité d'augmentation des caractéristiques
             case 3:
-                return new Caract(p, i, false);                                 //Capacité de diminution des caractéristiques
+                return new Caract(p, i, false,"Caractéristiques x0.75");//Capacité de diminution des caractéristiques
             case 4:
                 return new Suicide(p, i);                                       //Capacité Explosion suicide : Terminé
             case 5:
@@ -125,6 +128,10 @@ public abstract class Capacity {
     public static ArrayList<Capacity> getActive() {
         return active;
     }
+    
+    public String getName(){
+        return this.NAME;
+    }
 
     //Setters
     /**
@@ -138,5 +145,7 @@ public abstract class Capacity {
     public void setCool(int cool){
         this.cooldown=cool;
     }
+    
+    
 
 }

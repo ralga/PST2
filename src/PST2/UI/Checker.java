@@ -30,14 +30,14 @@ public class Checker extends GraphicObject
         img.rect(0, 0, W+1, W+1);
         img.endDraw();
     }
-    
+
     @Override
-    public void draw() 
+    public void draw()
     {
         se.g.imageMode(PApplet.CORNER);
         image(img, -1, -1);
     }
-    
+
     @Override
     public void mousePressed(int x, int y) {}
 

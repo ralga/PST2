@@ -6,7 +6,7 @@ import processing.core.*;
 
 public abstract class GraphicObject
 {   
-    private static final String[] ACCEPTED_EXT = {".png", ".jpg", ".gif",".jpeg"};      //Extensions d'image autorisées
+    private static final String[] ACCEPTED_EXT = {".png", ".jpg", ".gif", ".jpeg"};      //Extensions d'image autorisées
     protected final StratEdge se;
     protected int x;
     protected int y;

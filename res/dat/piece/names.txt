@@ -4,9 +4,15 @@ Fou
 Chevalier
 Tour
 Pion
-Roi
-Reine
-Fou
-Chevalier
+Roi Arthur
+Reine Victoria
+Mage
+Cavalier
 Tour
-Pion
+Ecuyer
+Diable
+Vampire
+Liche
+Cauchmirage
+Golem
+Fantôme

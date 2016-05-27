@@ -9,12 +9,12 @@ import PST2.StratEdge;
  */
 public class Phoenix extends Capacity {
 
-    private static final int COOL = 0;                                         //Cooldown propre à chaque capacité
+    private static final int COOL = 10;                                         //Cooldown propre à chaque capacité
     private final static int CAST = 0;                                          //Temps de Cast propre à chaque capacité
     private final int lifemax;
 
     public Phoenix(Piece piece,int id) {
-        super(piece, COOL, CAST, id, false);
+        super(piece, COOL, CAST, id, false,"Renaissance");
         lifemax = piece.getLife();
         init();
     }

@@ -4,6 +4,7 @@ import PST2.Piece.Piece;
 import PST2.*;
 
 import static PST2.Game.C;
+import PST2.Online.Connexion;
 import processing.core.PApplet;
 
 public class Armies extends GraphicObject
@@ -26,11 +27,14 @@ public class Armies extends GraphicObject
             game.setSelection(null);
             return;
         }
-        int t = nSelec.getTeam() ? 1 : 0;                                           
-        if(game.getTurn() % 2 != t)                                             //Si c'est au tour de l'équipe de nSelec
+        if(Connexion.state != 3 || (Connexion.state == 3 && game.t1.getSide() == nSelec.getTeam()))
         {
-            game.setSelection(nSelec);                                          //On modifie la sélection
-            pMoves = nSelec.getMoves(game.getChecker(), true);                  //On met à jour les mouvements
+            int t = nSelec.getTeam() ? 1 : 0;
+            if(game.getTurn() % 2 != t)                                             //Si c'est au tour de l'équipe de nSelec
+            {
+                game.setSelection(nSelec);                                          //On modifie la sélection
+                pMoves = nSelec.getMoves(game.getChecker(), true);                  //On met à jour les mouvements
+            }
         }
     }
     
@@ -46,33 +50,18 @@ public class Armies extends GraphicObject
                 if(pi != null)
                     image(tabImg[pi.getImg()], pi.getX()* w/C, pi.getY() * h/C);
         
-        //boolean[][] mouvs = game.getMoves(game.getTurn()%2 == 1, game.getChecker());
         if(game.getSelection() != null)
-        //{
             for(int i = 0; i < pMoves.length; i++)
                 for(int j = 0; j < pMoves[i].length; j++)
-                //{
                     if(pMoves[i][j])
                     {
                         se.g.noStroke();
                         if(!game.getSelection().getTeam())
-                            se.g.fill(0, 150, 0, 200);
+                            se.g.fill(150, 0, 0, 170);
                         else
-                            se.g.fill(150, 0, 0, 200);
+                            se.g.fill(0, 0, 150, 170);
                         ellipse(j * w/C + w/C/2, i * w/C + w/C/2, 30, 30);
                     }
-                    /*if(mouvs[i][j])
-                    {
-                        se.g.noStroke();
-                        if(!game.getSelection().getTeam())
-                            se.g.fill(0, 150, 0, 50);
-                        else
-                            se.g.fill(150, 0, 0, 50);
-                        ellipse(j * w/C + w/C/2, i * w/C + w/C/2, 50, 50);
-                    }
-                }
-        }*/
-        
     }
     
     @Override
@@ -92,10 +81,15 @@ public class Armies extends GraphicObject
             pMoves = selec.getMoves(game.getChecker(), true);                   //On récupère les mouvements potentiels de la sélection
             if(pMoves[ry*C / h][rx*C / w])                                      //Si le clic est sur une case où le mouvements est autorisé...
             {
+                if(Connexion.state == 3) 
+                    Connexion.send(Connexion.RACTION, selec.getX()+" "+selec.getY()+" "+rx*C / w+" "+ry*C / h);
                 selec.move(rx*C / w, ry*C / h, game.getChecker());              //On déplace la pièce sur la bonne case
                 game.promotion(selec);                                          //Tentative de promotion
-                game.setTurn();                                                 //On passe au tour suivant
                 game.setSelection(null);                                        //On annule la sélection
+                if(!promo.isVisible())
+                {
+                    game.setTurn();                                             //On passe au tour suivant
+                }
             }
             else
                 changeSelection(nSelec);                                        //On modifie la sélection

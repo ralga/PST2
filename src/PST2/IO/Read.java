@@ -34,4 +34,12 @@ public class Read
             tabI[i] = Integer.parseInt(tabCh[i]);
         return tabI;
     }
+    
+    public String int2String(int[] tab)
+    {
+        String ch = "";
+        for(int i : tab)
+            ch += i+" ";
+        return ch.substring(0, ch.length()-1);
+    }
 }

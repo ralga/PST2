@@ -11,6 +11,7 @@ public interface Piece
     public static final String UMOVESFILE = "res/dat/piece/unitMoves.txt";      //Fichier contenant les mouvements unitaires
     public static final String PIECESFILE = "res/dat/piece/pieces.txt";         //Fichier contenant les données des différentes pièces (type vie attaque defense)
     public static final String NAMESFILE = "res/dat/piece/names.txt";           //Fichier contenant les noms des différentes pièces
+    public static final String TEAMSFILE = "res/dat/team/teams.txt";                //Fichier contenant les différentes équipes
     
     public void testDirection(int dir, int dist, int nUM, Piece[][] checker, boolean[][] pMoves);   
     public void move(int x, int y, Piece[][] checker);                          //Déplace la pièce sur le terrain checker aux coordonnées (x, y)
@@ -43,6 +44,6 @@ public interface Piece
     public void setPos(int nX, int nY);                                         //Modifie la position de la pièce sur (nX, nY) et vérifie que le 1er mouvement n'a pas été effectué
     public void setCapacity1(Capacity ncap1);
     public void setCapacity2(Capacity ncap2);
-    public void kill();
     public void revive();
+    public void kill();
 }

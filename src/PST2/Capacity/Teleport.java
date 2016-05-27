@@ -10,7 +10,7 @@ public class Teleport extends Capacity {
     private Piece[][] tab;
 
     public Teleport(Piece p,int i) {
-        super(p,COOL, CAST,i,true);
+        super(p,COOL, CAST,i,true, "Téléportation");
         this.isActive=true;
         init();
     }
